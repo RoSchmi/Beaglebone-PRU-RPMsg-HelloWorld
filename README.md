@@ -26,7 +26,7 @@ The user space program hello sends a message to each PRU from where the message 
 
 This project is based on the TI PRU examples
 
-https://git.ti.com/pru-software-support-package/pru-software-support-package/trees/master
+ https://git.ti.com/pru-software-support-package/pru-software-support-package/trees/master
 
 and the project
 
