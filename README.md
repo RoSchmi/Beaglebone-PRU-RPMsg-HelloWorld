@@ -5,7 +5,9 @@ This project runs on: Linux beaglebone 4.4.91-ti-r133 #1 SMP Tue Oct 10 05:18:08
 
 How to use:
 Copy the content of this repository in the folder debian@beaglebone:~/PruProgs/Pru_RPMsg_Hello/
+
 (if you use another folder, change the content of the variable CODE_ROOT in the file Makefile accordingly)
+
 Navigate to the folder ../Pru_RPMsg_Hello/
 
 Type:
