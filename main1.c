@@ -42,7 +42,7 @@
 volatile register uint32_t __R31;
 
 /* Added by RoSchmi for tests */
-volatile register uint32_t __R30;
+/* volatile register uint32_t __R30; */
 
 /* Host-1 Interrupt sets bit 31 in register R31 */
 #define HOST_INT			((uint32_t) 1 << 31)
@@ -56,8 +56,8 @@ volatile register uint32_t __R30;
 
 /*
  * Using the name 'rpmsg-client-sample' will probe the RPMsg sample driver
- * found at linux-x.y.z/samples/rpmsg/rpmsg_client_sample.c ( rpmsg_client_sample.ko )
- * ?? root@beaglebone:/lib/modules/4.4.91-ti-r133/kernel/samples/rpmsg/rpmsg_pru.ko
+ * found at linux-x.y.z/samples/rpmsg/rpmsg_client_sample.c 
+ * ?? root@beaglebone:/lib/modules/4.4.91-ti-r133/kernel/samples/rpmsg/rpmsg_client_sample.ko
  *
  * Using the name 'rpmsg-pru' will probe the rpmsg_pru driver found
  
@@ -79,39 +79,28 @@ volatile register uint32_t __R30;
 
 uint8_t payload[RPMSG_BUF_SIZE];
 
-/* RoSchmi added for tests */
-
+/* RoSchmi: temporarily added for tests */
+/*
 #define	INS_PER_US 200                        // 5ns per instruction
 #define INS_PER_DELAY_LOOP 2	              // two instructions per delay loop
 #define DELAY_CYCLES_US (INS_PER_US / INS_PER_DELAY_LOOP)
-
-
 #ifndef DELAY_CYCLES
 #define DELAY_CYCLES DELAY_CYCLES_US
 #endif
-
-
 #define GPIO1 0x4804C000
 #define GPIO_CLEARDATAOUT 0x190
 #define GPIO_SETDATAOUT 0x194
 #define USR0 (1<<21)
-
 unsigned int volatile * const GPIO1_CLEAR = (unsigned int *)(GPIO1 + GPIO_CLEARDATAOUT);
-
 unsigned int volatile * const GPIO1_SET = (unsigned int *)(GPIO1 + GPIO_SETDATAOUT);
+*/
 
-
-
-/*
- * main.c
- */
 void main(void)
 {
-	int i, j;
-
+	/* RoSchmi: temporarily added for tests */
+	/* int i, j; */
 	/* Configure GPI and GPO as Mode 0 (Direct Connect) */
-	CT_CFG.GPCFG0 = 0x0000;
-
+	/* CT_CFG.GPCFG0 = 0x0000; */
 	/*
 	for (i = 0; i < 5; i++)
 	{
@@ -121,6 +110,7 @@ void main(void)
 		for (j = 0; j<2000000; j++) { __delay_cycles(DELAY_CYCLES); }
 	}
 	*/
+
 	struct pru_rpmsg_transport transport;
 	uint16_t src, dst, len;
 	volatile uint8_t *status;
@@ -145,6 +135,9 @@ void main(void)
 		if (__R31 & HOST_INT) {
 			/* Clear the event status */
 			CT_INTC.SICR_bit.STS_CLR_IDX = FROM_ARM_HOST;
+
+			/* RoSchmi: temporarily added for tests */
+			/*
 			for (i = 0; i < 5; i++)
 			{
 				*GPIO1_SET = USR0;
@@ -152,6 +145,7 @@ void main(void)
 				*GPIO1_CLEAR = USR0;
 				for (j = 0; j<200000; j++) { __delay_cycles(DELAY_CYCLES); }
 			}
+			*/
 
 			/* Receive all available messages, multiple messages can be sent per kick */
 			while (pru_rpmsg_receive(&transport, &src, &dst, payload, &len) == PRU_RPMSG_SUCCESS) {

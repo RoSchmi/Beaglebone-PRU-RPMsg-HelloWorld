@@ -42,8 +42,8 @@
 
 volatile register uint32_t __R31;
 
-/*RoSchmi Added for tests*/
-volatile register uint32_t __R30;
+/* RoSchmi: temporarily added for tests*/
+/* volatile register uint32_t __R30; */
 
 /* Host-0 Interrupt sets bit 30 in register R31 */
 #define HOST_INT			((uint32_t) 1 << 30)
@@ -63,13 +63,13 @@ volatile register uint32_t __R30;
 #define CHAN_DESC			"Channel 30"
 #define CHAN_PORT			30
 
+/* RoSchmi: temporarily added for tests */
 /* defining Switch an Led for tests*/
-#define SW2		(1 << 7)		/* SW2 offset */
-#define GPIO1 0x4804C000
-#define GPIO_CLEARDATAOUT 0x190
-#define GPIO_SETDATAOUT 0x194
-
-#define PRU0_GPIO_15 (1<<15)
+/* #define SW2		(1 << 7) */		/* SW2 offset */
+/* #define GPIO1 0x4804C000 */
+/* #define GPIO_CLEARDATAOUT 0x190 */
+/* #define GPIO_SETDATAOUT 0x194 */
+/* #define PRU0_GPIO_15 (1<<15) */
 
 
 
@@ -84,14 +84,12 @@ volatile register uint32_t __R30;
 
 uint8_t payload[RPMSG_BUF_SIZE];
 
-/*
- * main.c
- */
+
 void main(void)
 {
-	/* RoSchmi Added for tests*/
+	/* RoSchmi: temporarily added for tests */
 	/* Configure GPI and GPO as Mode 0 (Direct Connect) */
-	CT_CFG.GPCFG0 = 0x0000;
+	/* CT_CFG.GPCFG0 = 0x0000; */
 
 
 	struct pru_rpmsg_transport transport;
@@ -114,6 +112,9 @@ void main(void)
 	/* Create the RPMsg channel between the PRU and ARM user space using the transport structure. */
 	while (pru_rpmsg_channel(RPMSG_NS_CREATE, &transport, CHAN_NAME, CHAN_DESC, CHAN_PORT) != PRU_RPMSG_SUCCESS);
 	while (1) {
+
+		/* RoSchmi: temporarily added for tests */
+		/*
 		if ((__R31 & SW2) == 0)
 		{
 			__R30 |= PRU0_GPIO_15;
@@ -122,7 +123,7 @@ void main(void)
 		{
 			__R30 ^= PRU0_GPIO_15;
 		}
-
+		*/
 
 		/* Check bit 30 of register R31 to see if the ARM has kicked us */
 		if (__R31 & HOST_INT) {
