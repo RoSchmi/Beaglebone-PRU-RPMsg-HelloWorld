@@ -14,8 +14,11 @@ Navigate to the folder ../Pru_RPMsg_Hello/
 
 Type:
 sudo make clean        // (to delete the old executable files)
+
 sudo make install -B   // (to compile and install the programs for PRU0 and PRU1)
+
 sudo make -B           // (to compile the Linux user space program)
+
 sudo ./hello           // (to start the Linux user space program)
 
 The user space program hello sends a message to each PRU from where the message is returned and printed to the console.
