@@ -13,6 +13,7 @@ Copy the content of this repository in the folder debian@beaglebone:~/PruProgs/P
 Navigate to the folder ../Pru_RPMsg_Hello/
 
 Type:
+
 sudo make clean        // (to delete the old executable files)
 
 sudo make install -B   // (to compile and install the programs for PRU0 and PRU1)
